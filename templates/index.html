@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Dog Training Tracker</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Home | The Dog Training Tracker{% endblock %}
 
-    <h1>Welcome to Dog Training Tracker</h1>
+{% block content %}
 
-    <p>
-        This application helps dog owners record dog profiles and training sessions.
-    </p>
+<h2>Welcome</h2>
 
-</body>
-</html>
+<p>
+    Welcome to The Dog Training Tracker. This web application helps dog owners
+    record dog profiles and training sessions, allowing training progress to be
+    managed in one place.
+</p>
+
+{% endblock %}

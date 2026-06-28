@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Add Dog{% endblock %}
+
+{% block content %}
+
+<h2>Add Dog</h2>
+
+<p>Please complete the form below to add a new dog profile.</p>
+
+<form>
+
+    <label for="dog_name">Dog Name</label><br>
+    <input type="text" id="dog_name" name="dog_name"><br><br>
+
+    <label for="breed">Breed</label><br>
+    <input type="text" id="breed" name="breed"><br><br>
+
+    <label for="age">Age</label><br>
+    <input type="number" id="age" name="age"><br><br>
+
+    <label for="owner">Owner Name</label><br>
+    <input type="text" id="owner" name="owner"><br><br>
+
+    <button type="submit">Save Dog</button>
+
+</form>
+
+{% endblock %}

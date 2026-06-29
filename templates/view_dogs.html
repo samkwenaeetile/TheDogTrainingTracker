@@ -4,8 +4,33 @@
 
 {% block content %}
 
-<h2>View Dogs</h2>
+<h2>Dog Profiles</h2>
 
-<p>This page will display all saved dog profiles.</p>
+{% if dogs %}
+
+    {% for dog in dogs %}
+
+    <div class="dog-card">
+
+        <h3>🐶 {{ dog["dog_name"] }}</h3>
+
+        <p><strong>Breed:</strong> {{ dog["breed"] }}</p>
+
+        <p><strong>Age:</strong> {{ dog["age"] }}</p>
+
+        <p><strong>Owner:</strong> {{ dog["owner_name"] }}</p>
+
+        <button>Edit</button>
+        <button>Delete</button>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>No dogs have been added yet.</p>
+
+{% endif %}
 
 {% endblock %}

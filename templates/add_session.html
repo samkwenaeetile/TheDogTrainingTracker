@@ -1,11 +1,81 @@
 {% extends "base.html" %}
 
-{% block title %}Training Sessions{% endblock %}
+{% block title %}Add Training Session{% endblock %}
 
 {% block content %}
 
-<h2>Training Sessions</h2>
+<h2>Add Training Session</h2>
 
-<p>This page will allow users to record dog training sessions.</p>
+<form action="/save-session" method="POST">
+
+    <label for="dog_id">Select Dog</label><br>
+
+    <select name="dog_id" id="dog_id" required>
+
+        {% for dog in dogs %}
+
+        <option value="{{ dog['dog_id'] }}">
+            {{ dog['dog_name'] }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Training Date</label><br>
+    <input type="date" name="training_date" required>
+
+    <br><br>
+
+    <label>Training Type</label><br>
+
+    <select name="training_type">
+
+        <option>Sit</option>
+        <option>Stay</option>
+        <option>Recall</option>
+        <option>Lead Walking</option>
+        <option>Heel</option>
+
+    </select>
+
+    <br><br>
+
+    <label>Duration (minutes)</label><br>
+
+    <input type="number"
+           name="duration">
+
+    <br><br>
+
+    <label>Notes</label><br>
+
+    <textarea
+        name="notes"
+        rows="4">
+    </textarea>
+
+    <br><br>
+
+    <label>Status</label><br>
+
+    <select name="status">
+
+        <option>Completed</option>
+        <option>In Progress</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+
+        Save Training Session
+
+    </button>
+
+</form>
 
 {% endblock %}

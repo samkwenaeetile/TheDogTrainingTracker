@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Training History{% endblock %}
+
+{% block content %}
+
+<h2>Training History</h2>
+
+{% if sessions %}
+
+    {% for session in sessions %}
+
+    <div class="dog-card">
+
+        <h3> {{ session["dog_name"] }}</h3>
+
+        <p><strong>Date:</strong> {{ session["training_date"] }}</p>
+
+        <p><strong>Training:</strong> {{ session["training_type"] }}</p>
+
+        <p><strong>Duration:</strong> {{ session["duration"] }} minutes</p>
+
+        <p><strong>Status:</strong> {{ session["status"] }}</p>
+
+        <p><strong>Notes:</strong> {{ session["notes"] }}</p>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>No training sessions recorded.</p>
+
+{% endif %}
+
+{% endblock %}

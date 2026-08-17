@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, redirect
-
+ 
+from flask import Flask, render_template, request, redirect, session, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = "dog1998"
 
+# The Dashboard
 
 @app.route("/")
 def home():
@@ -26,7 +29,7 @@ def home():
         total_sessions=total_sessions
     )
 
-
+# the dog tracker profile management : to create, view, delete and update te dog profiles.
 @app.route("/add-dog")
 def add_dog():
     return render_template("add_dog.html")
@@ -59,6 +62,8 @@ def view_dogs():
         dogs=dogs,
         search=search
     )
+
+# adding the traning sessions and management.
 
 @app.route("/add-session")
 def add_session():
@@ -212,6 +217,109 @@ def training_history():
         "training_history.html",
         sessions=sessions
     )
+
+# the user reigistration and login management.
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    # A GET request displays the registration form.
+    if request.method == "GET":
+        return render_template("register.html")
+
+    # A POST request processes the submitted form.
+    username = request.form["username"].strip()
+    email = request.form["email"].strip().lower()
+    password = request.form["password"]
+    confirm_password = request.form["confirm_password"]
+
+    # Prevent an account from being created when the passwords differ.
+    if password != confirm_password:
+        flash("Passwords do not match.")
+        return redirect("/register")
+
+    # Store a secure password hash rather than the original password.
+    password_hash = generate_password_hash(password)
+
+    connection = sqlite3.connect("database/dog_tracker.db")
+    cursor = connection.cursor()
+
+    try:
+        # Parameterised SQL reduces the risk of SQL injection.
+        cursor.execute("""
+            INSERT INTO users (username, email, password_hash)
+            VALUES (?, ?, ?)
+        """, (username, email, password_hash))
+
+        connection.commit()
+
+    except sqlite3.IntegrityError:
+        # UNIQUE database constraints prevent duplicate usernames and emails.
+        flash("Username or email already exists.")
+        return redirect("/register")
+
+    finally:
+        # The connection closes whether registration succeeds or fails.
+        connection.close()
+
+    flash("Account created successfully. Please log in.")
+    return redirect("/login")
+
+
+# User login
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    # A GET request displays the login form.
+    if request.method == "GET":
+        return render_template("login.html")
+
+    # to get the email and password enterd by user
+    email = request.form["email"].strip().lower()
+    password = request.form["password"]
+
+    connection = sqlite3.connect("database/dog_tracker.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+
+    # Retrieve the account that matches the submitted email.
+    cursor.execute(
+        "SELECT * FROM users WHERE email = ?",
+        (email,)
+    )
+
+    user = cursor.fetchone()
+    connection.close()
+
+    # Check that the account exists and that the password
+    # matches the securely stored password hash.
+    if user and check_password_hash(
+        user["password_hash"],
+        password
+    ):
+        session["user_id"] = user["user_id"]
+        session["username"] = user["username"]
+
+        flash("You have logged in successfully.")
+
+        return redirect("/")
+
+    flash("Invalid email address or password.")
+    
+    return redirect("/login")
+
+
+# User logout
+
+@app.route("/logout")
+def logout():
+
+    # Clear all information stored in the current user session.
+    session.clear()
+
+    flash("You have logged out successfully.")
+    return redirect("/login")
 
 if __name__ == "__main__":
     app.run(debug=True)

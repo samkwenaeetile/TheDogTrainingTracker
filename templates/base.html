@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog Training Tracker</title>
+
+    <title>{% block title %}Dog Training Tracker{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -11,30 +14,65 @@
 <body>
 
 <header>
-    <h1>Training Tracker For Yor Dog</h1>
+
+    <h1>Dog Training Tracker</h1>
+
     <p>
-        Manage your dogs profile and traning progress.
+        Manage your dog profiles and training progress here.
     </p>
 
-    <nav>
-        <a href="/">Dashboard</a>
-        <a href="/add-dog">Add Dog</a>
-        <a href="/view-dogs">View Dogs</a>
-        <a href="/add-session">Training Sessions</a>
-        <a href="/training-history">History</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <!-- Showing the different links depending on whether the user is logged in -->
+        {% if session.get("user_id") %}
+
+            <a href="/">Dashboard</a>
+            <a href="/add-dog">Add Dog</a>
+            <a href="/view-dogs">View Dogs</a>
+            <a href="/add-session">Training Sessions</a>
+            <a href="/training-history">History</a>
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+
+        {% endif %}
+
     </nav>
+
 </header>
 
 <main>
 
-{% block content %}
+    <!-- Display any flash messages -->
+    {% with messages = get_flashed_messages() %}
 
-{% endblock %}
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <p class="flash-message">{{ message }}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+    <!-- Page Content -->
+    {% block content %}
+
+    {% endblock %}
 
 </main>
 
 <footer>
-    <p>Dog Tracker</p>
+
+    <p>Dog Training Tracker © 2026</p>
+
 </footer>
 
 </body>

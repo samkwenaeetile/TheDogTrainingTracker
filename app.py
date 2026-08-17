@@ -2,13 +2,38 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+from functools import wraps
+import os
 
 app = Flask(__name__)
-app.secret_key = "dog1998"
+
+# secret key
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "default_secret_key"
+)
+
+# login proctection for user authentication
+
+def login_required(route_function):
+
+    @wraps(route_function)
+    def wrapped_route(*args, **kwargs):
+
+        # Redirect users to the login page if they are not authenticated.
+        if "user_id" not in session:
+            flash("Please log in to access this page.")
+            return redirect("/login")
+
+        return route_function(*args, **kwargs)
+
+    return wrapped_route
+
 
 # The Dashboard
 
 @app.route("/")
+@login_required
 def home():
 
     connection = sqlite3.connect("database/dog_tracker.db")
@@ -31,11 +56,13 @@ def home():
 
 # the dog tracker profile management : to create, view, delete and update te dog profiles.
 @app.route("/add-dog")
+@login_required
 def add_dog():
     return render_template("add_dog.html")
 
 
 @app.route("/view-dogs")
+@login_required
 def view_dogs():
 
     search = request.args.get("search", "")
@@ -66,6 +93,7 @@ def view_dogs():
 # adding the traning sessions and management.
 
 @app.route("/add-session")
+@login_required
 def add_session():
 
     connection = sqlite3.connect("database/dog_tracker.db")
@@ -81,6 +109,7 @@ def add_session():
     return render_template("add_session.html", dogs=dogs)
 
 @app.route("/save-dog", methods=["POST"])
+@login_required
 def save_dog():
 
     dog_name = request.form["dog_name"]
@@ -102,6 +131,7 @@ def save_dog():
     return redirect("/view-dogs")
 
 @app.route("/delete-dog/<int:dog_id>")
+@login_required
 def delete_dog(dog_id):
 
     connection = sqlite3.connect("database/dog_tracker.db")
@@ -118,6 +148,7 @@ def delete_dog(dog_id):
     return redirect("/view-dogs")
 
 @app.route("/edit-dog/<int:dog_id>")
+@login_required
 def edit_dog(dog_id):
 
     connection = sqlite3.connect("database/dog_tracker.db")
@@ -136,6 +167,7 @@ def edit_dog(dog_id):
     return render_template("edit_dog.html", dog=dog)
 
 @app.route("/update-dog/<int:dog_id>", methods=["POST"])
+@login_required
 def update_dog(dog_id):
 
     dog_name = request.form["dog_name"]
@@ -158,6 +190,7 @@ def update_dog(dog_id):
     return redirect("/view-dogs")
 
 @app.route("/save-session", methods=["POST"])
+@login_required
 def save_session():
 
     dog_id = request.form["dog_id"]
@@ -189,6 +222,7 @@ def save_session():
     return redirect("/add-session")
 
 @app.route("/training-history")
+@login_required
 def training_history():
 
     connection = sqlite3.connect("database/dog_tracker.db")
@@ -320,6 +354,7 @@ def logout():
 
     flash("You have logged out successfully.")
     return redirect("/login")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

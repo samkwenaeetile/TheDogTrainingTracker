@@ -356,6 +356,38 @@ def logout():
     flash("You have logged out successfully.")
     return redirect("/login")
 
+# Edit a existing training session for thier pet
+@app.route("/edit-session/<int:session_id>")
+@login_required
+def edit_session(session_id):
+
+    connection = sqlite3.connect("database/dog_tracker.db")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+
+    # Get the selected training session the user wants to edit.
+    cursor.execute("""
+        SELECT *
+        FROM training_sessions
+        WHERE session_id = ?
+    """, (session_id,))
+
+    session_record = cursor.fetchone()
+
+    # Get all dogs so the user can pick a dog in the edit form.
+    cursor.execute("SELECT * FROM dogs")
+    dogs = cursor.fetchall()
+
+    connection.close()
+
+    return render_template(
+        "edit_session.html",
+        session_record=session_record,
+        dogs=dogs
+    )
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

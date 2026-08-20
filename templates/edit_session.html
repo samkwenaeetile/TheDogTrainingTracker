@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Training Session{% endblock %}
+
+{% block content %}
+
+<h2>Edit Training Session</h2>
+
+<form action="/update-session/{{ session_record['session_id'] }}" method="POST">
+
+    <label for="dog_id">Edit your Dog session </label>
+
+    <select id="dog_id" name="dog_id" required>
+
+        {% for dog in dogs %}
+
+            <option value="{{ dog['dog_id'] }}"
+                {% if dog['dog_id'] == session_record['dog_id'] %}
+                    selected
+                {% endif %}>
+
+                {{ dog['dog_name'] }}
+
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+
+    <label for="training_date">Training Date</label>
+    <input
+        type="date"
+        id="training_date"
+        name="training_date"
+        value="{{ session_record['training_date'] }}"
+        required>
+
+
+    <label for="training_type">Training Type</label>
+    <input
+        type="text"
+        id="training_type"
+        name="training_type"
+        value="{{ session_record['training_type'] }}"
+        required>
+
+
+    <label for="duration">Duration (minutes)</label>
+    <input
+        type="number"
+        id="duration"
+        name="duration"
+        value="{{ session_record['duration'] }}"
+        required>
+
+
+    <label for="status">Status</label>
+    <select id="status" name="status" required>
+
+        <option value="In Progress"
+            {% if session_record['status'] == 'In Progress' %}
+                selected
+            {% endif %}>
+            In Progress
+        </option>
+
+        <option value="Completed"
+            {% if session_record['status'] == 'Completed' %}
+                selected
+            {% endif %}>
+            Completed
+        </option>
+
+    </select>
+
+
+    <label for="notes">Notes</label>
+
+    <textarea
+        id="notes"
+        name="notes">{{ session_record['notes'] }}</textarea>
+
+
+    <button type="submit">Update Session</button>
+
+</form>
+
+{% endblock %}

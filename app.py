@@ -230,18 +230,19 @@ def training_history():
     cursor = connection.cursor()
 
     cursor.execute("""
-        SELECT
-            dogs.dog_name,
-            training_sessions.training_date,
-            training_sessions.training_type,
-            training_sessions.duration,
-            training_sessions.notes,
-            training_sessions.status
-        FROM training_sessions
-        JOIN dogs
-            ON training_sessions.dog_id = dogs.dog_id
-        ORDER BY training_sessions.training_date DESC
-    """)
+    SELECT
+        training_sessions.session_id,
+        dogs.dog_name,
+        training_sessions.training_date,
+        training_sessions.training_type,
+        training_sessions.duration,
+        training_sessions.notes,
+        training_sessions.status
+    FROM training_sessions
+    JOIN dogs
+        ON training_sessions.dog_id = dogs.dog_id
+    ORDER BY training_sessions.training_date DESC
+""")
 
     sessions = cursor.fetchall()
 

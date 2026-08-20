@@ -24,6 +24,10 @@
 
         <p><strong>Notes:</strong> {{ session["notes"] }}</p>
 
+        <a href="/edit-session/{{ session['session_id'] }}">
+        <button>Edit Session</button>
+        </a>
+        
     </div>
 
     {% endfor %}

@@ -386,7 +386,48 @@ def edit_session(session_id):
         dogs=dogs
     )
 
+# To update the users existing training session 
+@app.route("/update-session/<int:session_id>", methods=["POST"])
+@login_required
+def update_session(session_id):
 
+    # Get the updated information from the edit form.
+    dog_id = request.form["dog_id"]
+    training_date = request.form["training_date"]
+    training_type = request.form["training_type"]
+    duration = request.form["duration"]
+    notes = request.form["notes"]
+    status = request.form["status"]
+
+    connection = sqlite3.connect("database/dog_tracker.db")
+    cursor = connection.cursor()
+
+    # Update the selected training session using its unique session ID.
+    cursor.execute("""
+        UPDATE training_sessions
+        SET dog_id = ?,
+            training_date = ?,
+            training_type = ?,
+            duration = ?,
+            notes = ?,
+            status = ?
+        WHERE session_id = ?
+    """, (
+        dog_id,
+        training_date,
+        training_type,
+        duration,
+        notes,
+        status,
+        session_id
+    ))
+
+    connection.commit()
+    connection.close()
+
+    flash("Training session updated successfully.")
+
+    return redirect("/training-history")
 
 
 if __name__ == "__main__":

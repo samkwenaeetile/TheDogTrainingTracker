@@ -429,6 +429,27 @@ def update_session(session_id):
 
     return redirect("/training-history")
 
+# Delete the user's existing training session
+@app.route("/delete-session/<int:session_id>")
+@login_required
+def delete_session(session_id):
+
+    connection = sqlite3.connect("database/dog_tracker.db")
+    cursor = connection.cursor()
+
+    # Delete only the picked training session.
+    cursor.execute(
+        "DELETE FROM training_sessions WHERE session_id = ?",
+        (session_id,)
+    )
+
+    connection.commit()
+    connection.close()
+
+    flash("Training session deleted successfully.")
+
+    return redirect("/training-history")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

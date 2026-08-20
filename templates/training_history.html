@@ -26,8 +26,12 @@
 
         <a href="/edit-session/{{ session['session_id'] }}">
         <button>Edit Session</button>
+        <a href="/delete-session/{{ session['session_id'] }}"
+        onclick="return confirm('Are you sure you want to delete this training session?');">
+        <button>Delete Your Session</button>
         </a>
-        
+        </a>
+
     </div>
 
     {% endfor %}

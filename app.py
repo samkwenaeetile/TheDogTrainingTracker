@@ -29,14 +29,15 @@ def login_required(route_function):
 
     return wrapped_route
 
-
-# The Dashboard
-
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# User dashboard
+
+# The Dashboard
+
+# The Dashboard
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
@@ -45,20 +46,67 @@ def dashboard():
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
+    # Count all dogs saved in the database
     cursor.execute("SELECT COUNT(*) FROM dogs")
     total_dogs = cursor.fetchone()[0]
 
+    # Count all training sessions
     cursor.execute("SELECT COUNT(*) FROM training_sessions")
     total_sessions = cursor.fetchone()[0]
+
+    # Count completed training sessions
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM training_sessions
+        WHERE status = 'Completed'
+    """)
+    completed_sessions = cursor.fetchone()[0]
+
+    # Count training sessions that are still in progress
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM training_sessions
+        WHERE status = 'In Progress'
+    """)
+    in_progress_sessions = cursor.fetchone()[0]
+
+    # Get the five most recent training sessions
+    cursor.execute("""
+        SELECT
+            dogs.dog_name,
+            training_sessions.training_date,
+            training_sessions.training_type,
+            training_sessions.duration,
+            training_sessions.status
+        FROM training_sessions
+        JOIN dogs
+            ON training_sessions.dog_id = dogs.dog_id
+        ORDER BY training_sessions.training_date DESC
+        LIMIT 5
+    """)
+
+    recent_sessions = cursor.fetchall()
+
+    # Get the dogs to show on the dashboard
+    cursor.execute("""
+        SELECT *
+        FROM dogs
+        ORDER BY dog_name
+    """)
+
+    dashboard_dogs = cursor.fetchall()
 
     connection.close()
 
     return render_template(
         "dashboard.html",
         total_dogs=total_dogs,
-        total_sessions=total_sessions
+        total_sessions=total_sessions,
+        completed_sessions=completed_sessions,
+        in_progress_sessions=in_progress_sessions,
+        recent_sessions=recent_sessions,
+        dashboard_dogs=dashboard_dogs
     )
-
 #  About page
 @app.route("/about")
 def about():
@@ -363,7 +411,7 @@ def login():
 
         flash("You have logged in successfully.")
 
-        return redirect("/")
+        return redirect("/dashboard")
 
     flash("Invalid email address or password.")
     

@@ -4,13 +4,20 @@
 
 {% block content %}
 
-<h1>Dog Training Tracker</h1>
 
-<p>
-Welcome to the Dog Training Tracker.
-Use the dashboard below to manage dog profiles and training sessions.
-</p>
+<!-- This section welcomes the user to their dashboard -->
+<section class="dashboard-welcome">
 
+    <h1>Welcome back, {{ session["username"] }}</h1>
+
+    <p>
+        Here is a quick overview of your dogs and recent training activity.
+    </p>
+
+</section>
+
+
+<!-- This section shows the main training statistics -->
 <div class="dashboard">
 
     <div class="stat-card">
@@ -23,22 +30,89 @@ Use the dashboard below to manage dog profiles and training sessions.
         <p>Training Sessions</p>
     </div>
 
-</div>
+    <div class="stat-card">
+        <h2>{{ completed_sessions }}</h2>
+        <p>Completed Sessions</p>
+    </div>
 
-<div class="quick-links">
-
-    <a class="dashboard-button" href="/add-dog">Add Dog</a>
-
-    <a class="dashboard-button" href="/view-dogs">View Dogs</a>
-
-    <a class="dashboard-button" href="/add-session">
-        Add Training Session
-    </a>
-
-    <a class="dashboard-button" href="/training-history">
-        Training History
-    </a>
+    <div class="stat-card">
+        <h2>{{ in_progress_sessions }}</h2>
+        <p>In Progress</p>
+    </div>
 
 </div>
+
+
+<!-- This section shows the most recent training sessions -->
+<section class="dashboard-section">
+
+    <h2>Recent Training</h2>
+
+    {% if recent_sessions %}
+
+        <div class="recent-training">
+
+            {% for training in recent_sessions %}
+
+                <div class="recent-card">
+
+                    <h3>{{ training["dog_name"] }}</h3>
+
+                    <p>
+                        <strong>Training:</strong>
+                        {{ training["training_type"] }}
+                    </p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        {{ training["training_date"] }}
+                    </p>
+
+                    <p>
+                        <strong>Duration:</strong>
+                        {{ training["duration"] }} minutes
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ training["status"] }}
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No training sessions have been recorded yet.
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<!-- This section gives users extra help if needed -->
+<section class="dashboard-help-card">
+
+    <div>
+
+        <h2>Need Help?</h2>
+
+        <p>
+            Visit the Help & FAQ page for guidance on using the Dog Training Tracker.
+        </p>
+
+    </div>
+
+    <a class="help-button" href="/help">
+        Help & FAQ
+    </a>
+
+</section>
+
 
 {% endblock %}

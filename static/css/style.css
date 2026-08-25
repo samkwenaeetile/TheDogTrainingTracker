@@ -30,7 +30,7 @@ header p {
     font-size: 16px;
 }
 
-/*Navigation*/
+/* the navigation bar styles*/
 
 .navbar {
     display: flex;
@@ -68,7 +68,7 @@ main p {
     line-height: 1.6;
 }
 
-/* Forms */
+/* the form styles */
 
 form {
     background: white;
@@ -115,7 +115,7 @@ button:hover {
     background: #276749;
 }
 
-/* The Dog Cards*/
+/* the cards styles for the dog profiles*/
 
 .dog-card {
     background: white;
@@ -140,7 +140,7 @@ button:hover {
     margin-right: 10px;
 }
 
-/* The Dashboard*/
+/* dashboard styles*/
 
 .dashboard {
     display: flex;
@@ -200,7 +200,7 @@ footer {
     padding: 15px;
 }
 
-/* Responsive Design */
+/* styles for responsive design to ensure the layout adapts to different screen sizes */
 
 @media (max-width: 768px) {
 
@@ -226,4 +226,236 @@ footer {
         width: 100%;
         text-align: center;
     }
+
+        .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-section {
+        padding: 35px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 32px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .home-section {
+        margin: 35px 0;
+    }
+
+    .video-grid {
+    grid-template-columns: 1fr;
+}
+}
+
+/*  Homepage styles */
+
+.hero-section {
+    background: white;
+    padding: 50px 35px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    color: #2f855a;
+    margin-bottom: 18px;
+}
+
+.hero-section p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.7;
+}
+/* styles for the videos for traning videos layout */
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+    align-items: start;
+}
+
+.video-card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    border-top: 5px solid #2f855a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.video-card h3 {
+    color: #2f855a;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+/* styles to control the size of the videos*/
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 53%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+
+/* Content Sections */
+
+.home-section {
+    margin: 50px 0;
+}
+
+.home-section > p {
+    max-width: 850px;
+    margin-bottom: 20px;
+}
+
+
+/* styles for feature cards layout */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 25px;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-top: 5px solid #2f855a;
+}
+
+.feature-card h3 {
+    color: #2f855a;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    margin-bottom: 15px;
+}
+
+.feature-card a {
+    color: #2f855a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.feature-card a:hover {
+    text-decoration: underline;
+}
+/* styles for images on card layouts */
+.training-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+
+/* styles for the call-to-action section for register and login buttons */
+
+.home-cta {
+    background: white;
+    padding: 35px;
+    margin-top: 50px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.home-cta h2 {
+    color: #2f855a;
+    margin-bottom: 15px;
+}
+
+.home-cta p {
+    margin-bottom: 20px;
+}
+
+
+/* Flash Messages */
+
+.flash-message {
+    background: white;
+    border-left: 5px solid #2f855a;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.home-cta {
+    background: #2f855a;
+    color: white;
+    padding: 50px 35px;
+    border-radius: 14px;
+    margin: 60px 0 20px;
+    text-align: center;
+}
+
+.home-cta h2 {
+    color: white;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.home-cta p {
+    max-width: 700px;
+    margin: 0 auto 12px;
+    line-height: 1.7;
+}
+
+.cta-links {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cta-button,
+.cta-secondary {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cta-button {
+    background: white;
+    color: #2f855a;
+}
+
+.cta-secondary {
+    border: 2px solid white;
+    color: white;
+}
+
+.cta-button:hover,
+.cta-secondary:hover {
+    opacity: 0.9;
 }

@@ -1,44 +1,253 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 
-<h1> Dog Training Tracker</h1>
+<!-- the mainhome page -->
+<section class="hero-section">
 
-<p>
-Welcome to the Dog Training Tracker.
-Use the dashboard below to manage dog profiles and training sessions.
-</p>
+    <div class="hero-text">
+        <h1>Build Better Habits With Your Dog</h1>
 
-<div class="dashboard">
-
-    <div class="stat-card">
-        <h2>{{ total_dogs }}</h2>
-        <p>Total Dogs</p>
+        <p>
+            Dog Training Tracker helps dog owners organise training,
+            record progress and keep important information together
+            in one simple place.
+        </p>
     </div>
 
-    <div class="stat-card">
-        <h2>{{ total_sessions }}</h2>
-        <p>Training Sessions</p>
+</section>
+
+<!-- gives information regarding dog training -->
+<section class="home-section">
+
+    <h2>Training That Fits Everyday Life</h2>
+
+    <p>
+        Dog training is an ongoing process that can support communication,
+        consistency and confidence between dogs and their owners.
+        Keeping clear training records makes it easier to remember what
+        has been practised and where more work may be needed.
+    </p>
+
+</section>
+
+<!-- displays common dog tips about training their dogs -->
+<section class="home-section">
+
+    <h2>Common Training Goals</h2>
+
+    <div class="feature-grid">
+
+        <div class="feature-card training-card">
+
+            <img
+                src="/static/css/images/recall.jpg"
+                alt="Dog practising recall training">
+
+            <h3>Recall</h3>
+
+            <p>
+                Practise helping your dog return when called and keep
+                a record of how their recall develops over time.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card training-card">
+
+            <img
+                src="/static/css/images/sit_and_stay.jpg"
+                alt="Dog practising sit and stay training">
+
+            <h3>Sit & Stay</h3>
+
+            <p>
+                Build focus and practise simple everyday cues while
+                recording your dog's progress.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card training-card">
+
+            <img
+                src="/static/css/images/lead_walking.jpg"
+                alt="Dog walking calmly on a lead">
+
+            <h3>Lead Walking</h3>
+
+            <p>
+                Track lead-walking sessions and record changes in your
+                dog's walking habits.
+            </p>
+
+        </div>
+
     </div>
 
-</div>
+</section>
 
-<div class="quick-links">
+<!-- links for users to take them to training resources -->
+<section class="home-section">
 
-    <a class="dashboard-button" href="/add-dog">Add Dog</a>
+     <h2>Training Resources</h2>
 
-    <a class="dashboard-button" href="/view-dogs">View Dogs</a>
+    <div class="feature-grid">
 
-    <a class="dashboard-button" href="/add-session">
-        Add Training Session
-    </a>
+        <div class="feature-card">
+            <h3>Positive Training</h3>
 
-    <a class="dashboard-button" href="/training-history">
-        Training History
-    </a>
+            <p>
+                Learn more about reward-based training and how positive
+                reinforcement can support your dog's learning.
+            </p>
 
-</div>
+            <a href="https://www.pdsa.org.uk/pet-help-and-advice/looking-after-your-pet/puppies-dogs/reward-based-training"
+               target="_blank"
+               rel="noopener noreferrer">
+                Read PDSA Guidance
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h3>Training Consistency</h3>
+
+            <p>
+                Explore practical guidance on keeping cues, rewards and
+                training routines consistent.
+            </p>
+
+            <a href="https://www.cannycaninesuk.com/post/consistency-is-key-to-success-how-to-keep-consistent-with-your-training-when-times-are-hard"
+               target="_blank"
+               rel="noopener noreferrer">
+                Read Training Guidance
+            </a>
+        </div>
+
+        <div class="feature-card">
+            <h3>Healthy Training Habits</h3>
+
+            <p>
+                Learn more about creating balanced training routines and
+                supporting your dog's wellbeing during training.
+            </p>
+
+            <a href="https://cloudpaws.com/blogs/pet-care/dogs-and-training-complete-guide"
+               target="_blank"
+               rel="noopener noreferrer">
+                View Dog Training Guide
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- to display the dog training videos that users can link to watch-->
+<section class="home-section">
+
+    <h2>Watch & Learn</h2>
+
+    <p>
+        Watch practical dog training videos that can support your training sessions.
+    </p>
+
+    <div class="video-grid">
+
+        <div class="video-card">
+
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/cXN8Obr1yss"
+                    title="5 Dog Training Exercises"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <h3>5 Dog Training Exercises</h3>
+
+            <p>
+                Watch five practical training exercises that can be
+                practised with your dog.
+            </p>
+
+        </div>
+
+
+        <div class="video-card">
+
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/XQRgci18tvY"
+                    title="Everything You Need to Know to Train Your Dog"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <h3>Everything You Need to Know to Train Your Dog</h3>
+
+            <p>
+                Learn useful dog-training concepts and techniques
+                for everyday training.
+            </p>
+
+        </div>
+
+
+        <div class="video-card">
+
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/kP0rkSe_nP4"
+                    title="Dog Training 101"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <h3>Dog Training 101: How to Teach the Basics</h3>
+
+            <p>
+                Watch practical guidance covering basic dog-training
+                skills and techniques.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- for user registration and to login-->
+<section class="home-cta">
+
+    <div class="cta-content">
+
+        <h2>Keep Your Dog's Training Organised</h2>
+
+        <p>
+            Create dog profiles, record training sessions and return to
+            previous records whenever you need to review progress.
+        </p>
+
+        <p>
+            Dog Training Tracker gives you one simple place to keep
+            training information together.
+        </p>
+
+        <div class="cta-links">
+            <a href="/register" class="cta-button">Create an Account</a>
+            <a href="/login" class="cta-secondary">Already Registered? Login</a>
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

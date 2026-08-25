@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Dog Training Tracker</h1>
+
+<p>
+Welcome to the Dog Training Tracker.
+Use the dashboard below to manage dog profiles and training sessions.
+</p>
+
+<div class="dashboard">
+
+    <div class="stat-card">
+        <h2>{{ total_dogs }}</h2>
+        <p>Total Dogs</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>{{ total_sessions }}</h2>
+        <p>Training Sessions</p>
+    </div>
+
+</div>
+
+<div class="quick-links">
+
+    <a class="dashboard-button" href="/add-dog">Add Dog</a>
+
+    <a class="dashboard-button" href="/view-dogs">View Dogs</a>
+
+    <a class="dashboard-button" href="/add-session">
+        Add Training Session
+    </a>
+
+    <a class="dashboard-button" href="/training-history">
+        Training History
+    </a>
+
+</div>
+
+{% endblock %}

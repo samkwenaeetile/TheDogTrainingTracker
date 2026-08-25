@@ -18,30 +18,38 @@
     <h1>Dog Training Tracker</h1>
 
     <p>
-        Manage your dog profiles and training progress here.
+        Helping you to Organise training. Track progress. Support better habits.
     </p>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
+<!-- The Navigation Bar -->
+<nav class="navbar">
 
-        <!-- Showing the different links depending on whether the user is logged in -->
-        {% if session.get("user_id") %}
+    {% if session.get("user_id") %}
 
-            <a href="/">Dashboard</a>
-            <a href="/add-dog">Add Dog</a>
-            <a href="/view-dogs">View Dogs</a>
-            <a href="/add-session">Training Sessions</a>
-            <a href="/training-history">History</a>
-            <a href="/logout">Logout</a>
+        <!--navigation when logged in -->
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/add-dog">Add Dog</a>
+        <a href="/view-dogs">View Dogs</a>
+        <a href="/add-session">Training Sessions</a>
+        <a href="/training-history">Traning History</a>
+        <a href="/help">Help</a>
+        <a href="/logout">Logout</a>
 
-        {% else %}
+    {% else %}
 
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+        <!-- navigation when not logged in-->
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/training-tips">Training Tips</a>
+        <a href="/how-it-works">How It Works</a>
+        <a href="/help">Help & FAQ</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
 
-        {% endif %}
+    {% endif %}
 
-    </nav>
+</nav>
 
 </header>
 

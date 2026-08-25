@@ -33,8 +33,13 @@ def login_required(route_function):
 # The Dashboard
 
 @app.route("/")
-@login_required
 def home():
+    return render_template("index.html")
+
+# User dashboard
+@app.route("/dashboard")
+@login_required
+def dashboard():
 
     connection = sqlite3.connect("database/dog_tracker.db")
     connection.row_factory = sqlite3.Row
@@ -49,10 +54,30 @@ def home():
     connection.close()
 
     return render_template(
-        "index.html",
+        "dashboard.html",
         total_dogs=total_dogs,
         total_sessions=total_sessions
     )
+
+#  About page
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+# How It Works page
+@app.route("/how-it-works")
+def how_it_works():
+    return render_template("how_it_works.html")
+
+# Help and FAQ page
+@app.route("/help")
+def help_page():
+    return render_template("help.html")
+
+#  dog training tips page
+@app.route("/training-tips")
+def training_tips():
+    return render_template("training_tips.html")
 
 # the dog tracker profile management : to create, view, delete and update te dog profiles.
 @app.route("/add-dog")

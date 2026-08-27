@@ -31,7 +31,7 @@
 
     <label>Training Type</label><br>
 
-    <select name="training_type">
+    <select name="training_type" required>
 
         <option>Sit</option>
         <option>Stay</option>
@@ -46,7 +46,9 @@
     <label>Duration (minutes)</label><br>
 
     <input type="number"
-           name="duration">
+           name="duration"
+           min="1"
+           required>
 
     <br><br>
 
@@ -61,7 +63,7 @@
 
     <label>Status</label><br>
 
-    <select name="status">
+    <select name="status" required>
 
         <option>Completed</option>
         <option>In Progress</option>
@@ -71,9 +73,7 @@
     <br><br>
 
     <button type="submit">
-
         Save Training Session
-
     </button>
 
 </form>

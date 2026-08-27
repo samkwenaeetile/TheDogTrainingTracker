@@ -207,10 +207,27 @@ def save_dog():
 
     user_id = session["user_id"]
 
-    dog_name = request.form["dog_name"]
-    breed = request.form["breed"]
+    dog_name = request.form["dog_name"].strip()
+    breed = request.form["breed"].strip()
     age = request.form["age"]
-    owner_name = request.form["owner"]
+    owner_name = request.form["owner"].strip()
+
+    # Check that the required text fields are not empty
+    if not dog_name or not breed or not owner_name:
+        flash("Please complete all required dog information.")
+        return redirect("/add-dog")
+
+    # Check that age contains a valid number
+    try:
+        age = int(age)
+    except ValueError:
+        flash("Please enter a valid age.")
+        return redirect("/add-dog")
+
+    # Check that the dog's age is within the allowed range
+    if age < 0 or age > 30:
+        flash("Dog age must be between 0 and 30.")
+        return redirect("/add-dog")
 
     connection = sqlite3.connect("database/dog_tracker.db")
     cursor = connection.cursor()
@@ -298,16 +315,34 @@ def edit_dog(dog_id):
 
 
 # Update a dog belonging to the logged-in user
+# Update a dog belonging to the logged-in user
 @app.route("/update-dog/<int:dog_id>", methods=["POST"])
 @login_required
 def update_dog(dog_id):
 
     user_id = session["user_id"]
 
-    dog_name = request.form["dog_name"]
-    breed = request.form["breed"]
+    dog_name = request.form["dog_name"].strip()
+    breed = request.form["breed"].strip()
     age = request.form["age"]
-    owner_name = request.form["owner"]
+    owner_name = request.form["owner"].strip()
+
+    # Check that the required text fields are not empty
+    if not dog_name or not breed or not owner_name:
+        flash("Please complete all required dog information.")
+        return redirect(f"/edit-dog/{dog_id}")
+
+    # Check that age contains a valid number
+    try:
+        age = int(age)
+    except ValueError:
+        flash("Please enter a valid age.")
+        return redirect(f"/edit-dog/{dog_id}")
+
+    # Check that the dog's age is within the allowed range
+    if age < 0 or age > 30:
+        flash("Dog age must be between 0 and 30.")
+        return redirect(f"/edit-dog/{dog_id}")
 
     connection = sqlite3.connect("database/dog_tracker.db")
     cursor = connection.cursor()
@@ -714,7 +749,7 @@ def delete_session(session_id):
     flash("Training session deleted successfully.")
 
     return redirect("/training-history")
-
+ 
 
 if __name__ == "__main__":
     app.run(debug=True)
